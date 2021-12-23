@@ -7,6 +7,7 @@
  * Author: Chie
  * License: GPLv3
  * License URL: https://www.gnu.org/licenses/gpl-3.0.html
+ * Text Domain: cc-seo
  *
  * @package cc-seo
  * @authors chie (liqianhui0522@163.com)

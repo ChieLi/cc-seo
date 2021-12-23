@@ -1,0 +1,3 @@
+#: admin/class-cc-seo-admin.php:100
+msgid "CC-SEO Options"
+msgstr "CC-SEO设置"

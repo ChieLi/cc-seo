@@ -91,4 +91,82 @@ class CC_SEO_Admin {
 
     }
 
+    public function cc_seo_options_page() {
+        add_menu_page(
+            'CC-SEO',
+            __( 'CC-SEO Options', 'cc-seo'),
+            'manage_options',
+            plugin_dir_path(__FILE__) . 'partials/cc-seo-admin-display.php',
+            null,
+            // plugin_dir_url(__FILE__) . 'images/icon_wporg.png',
+            // 20
+        );
+    }
+
+    public function cc_seo_settings_init() {
+        register_setting( 'cc_seo', 'cc_seo_options');
+
+        add_settings_section(
+            'cc_seo_section_image', 
+            __( 'image', 'cc-seo'),
+            array( $this, 'cc_seo_section_image_callback'),
+            'cc_seo'
+        );
+
+        add_settings_field(
+            // $id
+            'cc_seo_field_image_diable_dragging',
+            // $title
+            __( 'disable dragging', 'cc-seo'),
+            // $callback
+            array( $this, 'cc_seo_field_checkbox_callback'),
+            // $page
+            'cc_seo',
+            // $section
+            'cc_seo_section_image',
+            // $args
+            // (array) (Optional) Extra arguments used when outputting the field.
+            array(
+                'label_for' => 'cc_seo_field_image_diable_dragging',
+                'class'     => 'cc_seo_options_row',
+                'description' => __( 'If checked, the html element img will be added attribute draggable=false.', 'cc-seo' ) 
+            )
+        );
+    }
+
+    public function cc_seo_image_content_filter( $content ) {
+        global $post;
+        $options = get_option( 'cc_seo_options' );
+
+        if (isset( $options['cc_seo_field_image_diable_dragging'] ) && $options['cc_seo_field_image_diable_dragging'] == 1) {
+            
+            $pattern ="/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
+            $replacement = '<img$1src=$2$3.$4$5 draggable="false"';
+            $content = preg_replace($pattern, $replacement, $content);
+       }
+       return $content;
+    }
+
+
+    function cc_seo_section_image_callback( $args ) {
+        ?>
+        <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Setiing options abount html img element.', 'cc-seo' ); ?></p>
+        <?php
+    }
+
+
+    function cc_seo_field_checkbox_callback( $args ) {
+        $options = get_option( 'cc_seo_options' );
+        ?>
+        <input id="<?php echo esc_attr( $args['id'] ); ?>"
+            type="checkbox" 
+            name="cc_seo_options[<?php echo esc_attr( $args['label_for'] ); ?>]" 
+            value="1"  <?php checked( 1, isset( $options[ $args['label_for'] ] ) && $options[ $args['label_for'] ]); ?>
+            >
+        <lable for="cc_seo_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
+            <?php echo esc_attr( $args['description'] ) ?>
+        </lable>
+        <?php
+    }
+
 }

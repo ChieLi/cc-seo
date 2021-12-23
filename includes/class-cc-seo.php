@@ -144,6 +144,10 @@ class CC_SEO {
         $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
         $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'cc_seo_options_page' );
+        $this->loader->add_action( 'admin_init', $plugin_admin, 'cc_seo_settings_init' );
+
+        $this->loader->add_filter( 'the_content', $plugin_admin, 'cc_seo_image_content_filter');
     }
 
     /**

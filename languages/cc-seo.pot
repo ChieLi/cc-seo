@@ -1,0 +1,35 @@
+# Copyright (C) 2021 Chie
+# This file is distributed under the GPLv3.
+msgid ""
+msgstr ""
+"Project-Id-Version: cc-seo 0.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/cc-seo\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-12-20T16:03:36+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.5.0\n"
+"X-Domain: cc-seo\n"
+
+#. Plugin Name of the plugin
+msgid "cc-seo"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://blog.chiecode.com"
+msgstr ""
+
+#. Description of the plugin
+msgid "basic seo tool"
+msgstr ""
+
+#. Author of the plugin
+msgid "Chie"
+msgstr ""
+
+#: admin/class-cc-seo-admin.php:100
+msgid "CC-SEO Options"
+msgstr ""
