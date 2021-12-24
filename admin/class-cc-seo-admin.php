@@ -96,10 +96,7 @@ class CC_SEO_Admin {
             'CC-SEO',
             __( 'CC-SEO Options', 'cc-seo'),
             'manage_options',
-            plugin_dir_path(__FILE__) . 'partials/cc-seo-admin-display.php',
-            null,
-            // plugin_dir_url(__FILE__) . 'images/icon_wporg.png',
-            // 20
+            plugin_dir_path(__FILE__) . 'partials/cc-seo-admin-display.php'
         );
     }
 
@@ -141,7 +138,7 @@ class CC_SEO_Admin {
         if (isset( $options['cc_seo_field_image_diable_dragging'] ) && $options['cc_seo_field_image_diable_dragging'] == 1) {
             
             $pattern ="/<img(.*?)src=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
-            $replacement = '<img$1src=$2$3.$4$5 draggable="false"';
+            $replacement = '<img$1src=$2$3.$4$5 draggable="false">';
             $content = preg_replace($pattern, $replacement, $content);
        }
        return $content;
