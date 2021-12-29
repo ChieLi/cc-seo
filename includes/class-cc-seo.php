@@ -64,7 +64,7 @@ class CC_SEO {
         $this->load_dependencies();
         $this->set_locale();
         $this->define_admin_hooks();
-        $this->define_public_hooks();
+        // $this->define_public_hooks();
 
     }
 
@@ -107,7 +107,7 @@ class CC_SEO {
          * The class responsible for defining all actions that occur in the public-facing
          * side of the site.
          */
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cc-seo-public.php';
+        // require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cc-seo-public.php';
 
         $this->loader = new CC_SEO_Loader();
 
