@@ -101,8 +101,8 @@ class CC_SEO {
         /**
          * The class responsible for defining all actions that occur in the admin area.
          */
+    
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-cc-seo-admin.php';
-
         /**
          * The class responsible for defining all actions that occur in the public-facing
          * side of the site.
@@ -148,6 +148,7 @@ class CC_SEO {
         $this->loader->add_action( 'admin_init', $plugin_admin, 'cc_seo_settings_init' );
 
         $this->loader->add_filter( 'the_content', $plugin_admin, 'cc_seo_image_content_filter');
+        $this->loader->add_action( 'template_redirect', $plugin_admin, 'cc_seo_dynamic_urls_to_static_urls' );
     }
 
     /**

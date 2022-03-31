@@ -129,6 +129,34 @@ class CC_SEO_Admin {
                 'description' => __( 'If checked, the html element img will be added attribute draggable=false.', 'cc-seo' ) 
             )
         );
+
+        add_settings_section(
+            'cc_seo_section_url', 
+            __( 'URL', 'cc-seo'),
+            array( $this, 'cc_seo_section_url_callback'),
+            'cc_seo'
+        );
+
+        add_settings_field(
+            // $id
+            'cc_seo_field_search_page_slug',
+            // $title
+            __( 'search page slug', 'cc-seo'),
+            // $callback
+            array( $this, 'cc_seo_field_text_callback'),
+            // $page
+            'cc_seo',
+            // $section
+            'cc_seo_section_url',
+            // $args
+            // (array) (Optional) Extra arguments used when outputting the field.
+            array(
+                'label_for' => 'cc_seo_field_search_page_slug',
+                'class'     => 'cc_seo_options_row',
+                'description' => __( 'If set, the search url structure(home_url/?s=search-term)will set to structure(home_url/($search_page_slug)/search-term)', 'cc-seo' ) 
+            )
+        );
+
     }
 
     public function cc_seo_image_content_filter( $content ) {
@@ -144,10 +172,29 @@ class CC_SEO_Admin {
        return $content;
     }
 
+    public function cc_seo_dynamic_urls_to_static_urls( $content) {
+        
+        if ( is_search() && ! empty( $_GET['s'] ) ) {
+
+            $options = get_option( 'cc_seo_options' );
+            $search_page_slug = $options['cc_seo_field_search_page_slug'];
+            if ( isset( $search_page_slug ) && ! empty( $search_page_slug ) ) {
+                wp_redirect( home_url( '/'. $search_page_slug .'/' ) . urlencode( get_query_var( 's' ) ) ) ;
+                exit();
+            }
+        }  
+    }
+
 
     function cc_seo_section_image_callback( $args ) {
         ?>
         <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Setiing options abount html img element.', 'cc-seo' ); ?></p>
+        <?php
+    }
+
+    function cc_seo_section_url_callback( $args ) {
+        ?>
+        <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Setiing options abount url.', 'cc-seo' ); ?></p>
         <?php
     }
 
@@ -163,6 +210,22 @@ class CC_SEO_Admin {
         <lable for="cc_seo_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
             <?php echo esc_attr( $args['description'] ) ?>
         </lable>
+        <?php
+    }
+
+    function cc_seo_field_text_callback( $args ) {
+        $options = get_option( 'cc_seo_options' );
+        ?>
+        <input id="<?php echo esc_attr( $args['id'] ); ?>"
+            type="text" 
+            name="cc_seo_options[<?php echo esc_attr( $args['label_for'] ); ?>]" 
+            value="<?php echo isset( $options[ $args['label_for'] ] ) ? esc_attr( $options[ $args['label_for'] ] ) : ''; ?>"
+            >
+        <p>
+            <lable for="cc_seo_options[<?php echo esc_attr( $args['label_for'] ); ?>]">
+                <?php echo esc_attr( $args['description'] ) ?>
+            </lable>
+        </p>
         <?php
     }
 
